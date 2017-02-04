@@ -1,0 +1,1987 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <title> Our Jobs Rock
+    </title>
+    <style type = "text/css">
+      body
+      {
+      background-color: #BAA894;
+      font-family: "Tahoma",Helvetica, sans-serif;
+      }
+      TABLE  {
+	
+	 border-style: ridge;
+      border: 1px #ffff ;
+      background-color: #E0F1FD;
+	  border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 13px;
+      }
+
+.tablebg
+{
+-moz-border-radius:10px;
+-webkit-border-radius:10px;
+behavior:url(border-radius.htc);
+}
+
+	  H2{
+      font-size: 40px;
+      color: #373B6B;
+      }
+
+      TH
+      {
+      
+	  text-align:left;
+      padding: 0.2cm 0 0.2cm 1in;
+      }
+
+      TD
+      {
+
+      padding: .2cm;
+      }
+
+TH.info
+{
+
+ background-color: #67B9F7;
+ font-size: 15px;
+}
+
+
+      }
+
+    </style>
+<script language="Javascript">
+{
+var applicantid = 0;
+var errorindoc = 0;
+/*** Text Fields ***/
+var appfname = new Array();
+var applname = new Array();
+var appaddr1 = new Array();
+var appaddr2 = new Array();
+var appcity= new Array();
+var appzip = new Array();
+var appphcode = new Array();
+var appphnum = new Array(); 
+var appemail = new Array();
+var apptitle = new Array();
+var appcname = new Array();
+var appschool = new Array();
+
+/*** Radio Buttons ***/
+
+var appgender =  new Array();
+var appethnicity = new Array();
+var appreligion = new Array();
+var apprelation = new Array();
+
+/*** DropDown Lists **/
+
+var appbirthcountry = new Array();
+var appindustry = new Array();
+var apppidatefrom = new Array();
+var apppidateto = new Array();
+var appeidatefrom = new Array();
+var appeidateto = new Array();
+var appexp = new Array();
+
+var appbirthmonth = new Array();
+var appbirthday = new Array();
+var appbirthyear = new Array();
+
+var appcountry = new Array();
+var appstate = new Array();
+
+var appmajor = new Array();
+var appfos = new Array();
+/* multi select */
+
+var appdegree = new Array();
+var applatform = new Array();
+
+/* Check boxes*/
+var appmode = new Array();
+var appavaildays = new Array();
+var appavailhours = new Array();
+var applang = new Array();
+
+/*Text Area*/
+
+var approftext = new Array();
+var appedutext = new Array();
+
+
+
+function switchDiv()
+{
+   var div1 = document.getElementById("div1");
+   var div2 = document.getElementById("div2");
+  
+      div1.style.visibility = "visible";
+      div2.style.visibility = "hidden";
+	
+}
+
+function populate(o)
+{
+d=document.getElementById('addresstate');
+			if(!d){return;}			
+			var mitems=new Array();
+			mitems['America']=['Alabama','Alaska','California','Delaware','Florida'];
+			mitems['India']=['Tamil Nadu','Delhi','Kerala','Goa','Maharastra'];
+			mitems['China']=['Bieging','Shangai'];
+			mitems['Australia']=['Melbourne','Sydney'];
+			mitems['SouthAfrica']=['Johannesberg'];
+	     d.options.length=0;
+			cur=mitems[o.options[o.selectedIndex].value];
+			if(!cur){return;}
+			d.options.length=cur.length;
+			for(var i=0;i<cur.length;i++)
+			{
+				d.options[i].text=cur[i];
+				d.options[i].value=cur[i];
+			}
+}
+	String.prototype.ValidateEmail = function (evt)
+	{
+	var eVal = new RegExp("\\w+([-+.\’]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
+	var chkVal = eVal.exec(this);
+	if(chkVal != null)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	}
+function populatefos(u)
+{
+f=document.getElementById('fos');
+			if(!f){return;}			
+			var fos=new Array();
+			fos['1']=['Computer Science','Electrical','Biomedical','Industrial','Aerospace'];
+			fos['2']=['Journalism','Media'];
+			     f.options.length=0;
+			cur=fos[u.options[u.selectedIndex].value];
+			if(!cur){return;}
+			f.options.length=cur.length;
+			for(var i=0;i<cur.length;i++)
+			{
+				f.options[i].text=cur[i];
+				f.options[i].value=cur[i];
+			}
+}
+function removelistbox(listboxdel)
+	{
+		var i = listboxdel.options.length;
+		while (listboxdel.options.length>1)
+		{
+			listboxdel.remove(i);
+			i--;
+		}
+	}
+
+	function dynamicdate(thismonth)
+	{
+		var year = 1967;
+		var popyear = document.form1.birthyear;
+		var limit = 0;
+		var src = document.form1.birthdate;
+		for (var i=year; i<=2010; i++)
+		{
+			var temp=document.createElement('option');
+			temp.text = i;			
+			temp.value=i;
+			try
+			{
+				popyear.add(temp, null);
+			}
+			catch(ex)
+			{
+				popyear.add(temp);
+			}
+		}
+		
+		if (thismonth == 0 || thismonth == 2 || thismonth == 4 || thismonth == 6 || thismonth == 7 || thismonth == 9 || thismonth == 11)
+		{
+			removelistbox(src);
+			limit = 31;			
+		}
+		
+		else if (thismonth == 3 || thismonth == 5 || thismonth == 8 || thismonth == 10)
+		{
+			removelistbox(src);
+			limit = 30;
+		}
+
+		else if (thismonth == 1)
+		{
+			removelistbox(src);
+			limit = 29;
+		}
+		
+		else if (thismonth == 12)
+		{
+			removelistbox(src);
+			limit=0;
+		}
+		
+		for (var i=1; i<=limit; i++)
+		{
+			var temp=document.createElement('option');
+			if (i<10)
+			{
+				temp.text = "0" + i;	
+			}
+
+			else
+			{
+				temp.text = i;
+			}
+			
+			temp.value=i;
+			try
+			{
+				src.add(temp, null);
+			}
+			catch(ex)
+			{
+				src.add(temp);
+			}
+		}
+	}
+
+function continueForm()
+{
+var errorindoc = 0;
+if (document.form1.firstname.value == "" || !(isNaN(document.form1.firstname.value)))
+		{
+			var f1 = document.getElementById("errfirstname");
+			f1.style.color="red";
+			errorindoc = 1;
+		}
+
+		else
+		{
+			var f1 = document.getElementById("errfirstname");
+			f1.style.color="black";
+		}	
+if (document.form1.lastname.value == "" || !(isNaN(document.form1.lastname.value)))
+		{
+			var f2 = document.getElementById("errlastname");
+			f2.style.color="red";
+			errorindoc = 1;
+		}
+
+		else
+		{
+			var f2 = document.getElementById("errlastname");
+			f2.style.color="black";
+		}	
+		
+if ((document.form1.birthmonth.value == '1' && document.form1.birthdate.value==29 && !((document.form1.birthyear.value%4)==0)) || (document.form1.birthmonth.value == "") || (document.form1.birthdate.value == "") || (document.form1.birthyear.value == ""))
+		{
+			var f3 = document.getElementById("errdob");
+			f3.style.color="red";
+			errorindoc = 1;
+		}
+		else
+		{
+			var f3 = document.getElementById("errdob");
+			f3.style.color="black";
+			}
+
+if (parseInt(document.form1.birthcountry.value)==0)
+		{
+			var f4 = document.getElementById("errbirthcountry");
+			f4.style.color="red";
+			errorindoc = 1;
+		}
+
+		else
+		{
+			var f4 = document.getElementById("errbirthcountry");
+			f4.style.color="black";
+		}
+
+		if (!((document.form1.gender[0].checked || document.form1.gender[1].checked || document.form1.gender[2].checked )))
+		{
+			var f5 = document.getElementById("errgender");
+			f5.style.color="red";
+			errorindoc = 1;
+		}
+
+		else
+		{
+			var f5 = document.getElementById("errgender");
+			f5.style.color="black";
+		}
+
+if (document.form1.address1.value == "")
+		{
+			var f6 = document.getElementById("erraddr");
+			f6.style.color="red";
+			errorindoc = 1;
+		}
+
+		else
+		{
+			var f6 = document.getElementById("erraddr");
+			f6.style.color="black";
+		}
+if ((document.form1.addresscountry.value == "" || document.form1.addresstate == ""))
+		{
+			var f7 = document.getElementById("errcountry");
+			f7.style.color="red";
+			errorindoc = 1;
+		}
+		else
+		{
+			var f7 = document.getElementById("errcountry");
+			f7.style.color="black";
+			}
+
+			
+			if (document.form1.city.value == "" || !(isNaN(document.form1.city.value))||(document.form1.zip.value == "" || (isNaN(document.form1.zip.value))))
+		{
+			var f8 = document.getElementById("errcity");
+			f8.style.color="red";
+			errorindoc = 1;
+		}
+		else
+		{
+			var f8 = document.getElementById("errcity");
+			f8.style.color="black";
+			}
+
+if (document.form1.phcode.value == "" || document.form1.phone.value == "" || document.form1.phone.value == " " || document.form1.phcode.value.length < 3 || (isNaN(document.form1.phcode.value)) || (isNaN(document.form1.phone.value)))
+		{
+			var f2 = document.getElementById("errphone");
+			f2.style.color="red";
+			errorindoc = 1;
+		}
+
+		else
+		{
+			var f2 = document.getElementById("errphone");
+			f2.style.color="black";
+		}
+
+
+if (document.form1.email.value == "" || !(document.form1.email.value.ValidateEmail()))
+		{
+			var f2 = document.getElementById("errmail");
+			f2.style.color="red";
+			errorindoc = 1;
+		}
+
+		else
+		{
+			var f2 = document.getElementById("errmail");
+			f2.style.color="black";
+		}
+
+			if (!(document.form1.lang[0].checked || document.form1.lang[1].checked || document.form1.lang[2].checked || document.form1.lang[3].checked))
+		{
+			var f3 = document.getElementById("errlang");
+			f3.style.color="red";
+			errorindoc = 1;
+		}
+
+		else
+		{
+			var f3 = document.getElementById("errlang");
+			f3.style.color="black";
+		}
+
+if (errorindoc==1)
+		{
+			var f4 = document.getElementById("errdescription1");
+			document.getElementById('errdescription1').innerHTML = "Please Correct the field(s) marked in red" ;
+			f4.style.color="red";
+			errorindoc = 1;
+			return;
+		}
+
+		var d1 = document.getElementById("div1");
+		d1.style.visibility="hidden";
+
+		var d2 = document.getElementById("div2");
+		d2.style.visibility="visible";
+
+		var d3 = document.getElementById("div3");
+		d3.style.visibility="hidden";
+
+				for (var i=0; i<applicantid; i++)
+		{
+			var d4 = document.getElementById('table'+i);
+			d4.style.visibility="hidden";
+		}
+
+		var d3 = document.getElementById("div4");
+		d3.style.visibility="hidden";
+
+
+
+}
+
+function confirmData()
+{
+var errorindoc = 0;
+if (document.form2.title2.value == "" )
+		{
+			var f2 = document.getElementById("errtitle2");
+			f2.style.color="red";
+			errorindoc = 1;
+		}
+
+		else
+		{
+			var f2 = document.getElementById("errtitle2");
+			f2.style.color="black";
+		}
+if (document.form2.companyName.value == "" )
+		{
+			var f2 = document.getElementById("errcname");
+			f2.style.color="red";
+			errorindoc = 1;
+		}
+
+		else
+		{
+			var f2 = document.getElementById("errcname");
+			f2.style.color="black";
+		}
+if (document.form2.collegeName.value == "" )
+		{
+			var f2 = document.getElementById("errcollname");
+			f2.style.color="red";
+			errorindoc = 1;
+		}
+
+		else
+		{
+			var f2 = document.getElementById("errcollname");
+			f2.style.color="black";
+		}
+
+
+
+		if (parseInt(document.form2.industry.value)==0)
+		{
+			var f4 = document.getElementById("errindustry");
+			f4.style.color="red";
+			errorindoc = 1;
+		}
+
+		else
+		{
+			var f4 = document.getElementById("errindustry");
+			f4.style.color="black";
+		}
+
+
+		if (parseInt(document.form2.workex.value)==0)
+		{
+			var f4 = document.getElementById("errworkex");
+			f4.style.color="red";
+			errorindoc = 1;
+		}
+
+		else
+		{
+			var f4 = document.getElementById("errworkex");
+			f4.style.color="black";
+		}
+		if (parseInt(document.form2.degree.value)==0)
+		{
+			var f4 = document.getElementById("errdegree");
+			f4.style.color="red";
+			errorindoc = 1;
+		}
+
+		else
+		{
+			var f4 = document.getElementById("errdegree");
+			f4.style.color="black";
+		}
+
+if (!(document.form2.agree.checked ))
+		{
+			var f3 = document.getElementById("erragree");
+			f3.style.color="red";
+			errorindoc = 1;
+		}
+
+		else
+		{
+			var f3 = document.getElementById("erragree");
+			f3.style.color="black";
+		}
+if ((document.form2.datedufrom.value == "" || document.form2.dateduto == "") ||(document.form2.datedufrom.value) > (document.form2.dateduto.value ))
+		{
+			var f7 = document.getElementById("errdatedu");
+			f7.style.color="red";
+			errorindoc = 1;
+		}
+		else
+		{
+			var f7 = document.getElementById("errdatedu");
+			f7.style.color="black";
+			}
+
+			if ((document.form2.dateproffrom.value == "" || document.form2.dateprofto == "") ||(document.form2.dateproffrom.value) > (document.form2.dateprofto.value ))
+		{
+			var f7 = document.getElementById("errdateprof");
+			f7.style.color="red";
+			errorindoc = 1;
+		}
+		else
+		{
+			var f7 = document.getElementById("errdateprof");
+			f7.style.color="black";
+			}
+if ((document.form2.major.value == "" || document.form2.fos == ""))
+		{
+			var f7 = document.getElementById("errmfos");
+			f7.style.color="red";
+			errorindoc = 1;
+		}
+		else
+		{
+			var f7 = document.getElementById("errmfos");
+			f7.style.color="black";
+			}
+
+/****Save Data***/
+
+/*** Text Fields ***/
+appfname[applicantid] = document.form1.firstname.value;
+applname[applicantid] = document.form1.lastname.value;
+appaddr1[applicantid] = document.form1.address1.value;
+appaddr2[applicantid] = document.form1.address2.value;
+appcity[applicantid] = document.form1.city.value;
+appzip[applicantid] = document.form1.zip.value;
+appphcode[applicantid] = document.form1.phcode.value;
+appphnum[applicantid] = document.form1.phone.value;
+appemail[applicantid] = document.form1.email.value;
+apptitle[applicantid] = document.form2.title2.value;
+appcname[applicantid] = document.form2.companyName.value;
+appschool[applicantid] = document.form2.collegeName.value;
+
+/*** Radio Buttons */
+
+		for (var i=0; i<document.form1.gender.length; i++)
+		{
+			if (document.form1.gender[i].checked)
+			{
+				var x = i;
+				break;
+			}
+		}
+		appgender[applicantid] = document.form1.gender[x].value;
+
+		for (var i=0; i<document.form1.ethnicity.length; i++)
+		{
+			if (document.form1.ethnicity[i].checked)
+			{
+				var x = i;
+				break;
+			}
+		}
+		appethnicity[applicantid] = document.form1.ethnicity[x].value;
+
+		
+				
+				
+				for (var i=0; i<document.form1.religion.length; i++)
+		{
+			if (document.form1.religion[i].checked)
+			{
+				var x = i;
+				break;
+			}
+		}
+		appreligion[applicantid] = document.form1.religion[x].value;
+
+				for (var i=0; i<document.form1.relation.length; i++)
+		{
+			if (document.form1.relation[i].checked)
+			{
+				var x = i;
+				break;
+			}
+		}
+		apprelation[applicantid] = document.form1.relation[x].value;
+
+	/** Drop Down **/
+var x = document.form1.birthcountry.selectedIndex;
+appbirthcountry[applicantid] = document.form1.birthcountry[x].text;
+
+var x = document.form2.industry.selectedIndex;
+appindustry[applicantid] = document.form2.industry[x].text;
+
+var x = document.form2.dateproffrom.selectedIndex;
+apppidatefrom[applicantid] = document.form2.dateproffrom[x].text;
+var x = document.form2.dateprofto.selectedIndex;
+apppidateto[applicantid] = document.form2.dateprofto[x].text;
+
+var x = document.form2.datedufrom .selectedIndex;
+appeidatefrom[applicantid] = document.form2.datedufrom[x].text;
+var x = document.form2.dateduto .selectedIndex;
+appeidateto[applicantid] = document.form2.dateduto[x].text;
+
+var x = document.form2.workex .selectedIndex;
+appexp[applicantid] = document.form2.workex[x].text;
+
+var x = document.form1.birthmonth .selectedIndex;
+appbirthmonth[applicantid] = document.form1.birthmonth[x].text;
+var x = document.form1.birthdate .selectedIndex;
+appbirthday[applicantid] = document.form1.birthdate[x].text;
+var x = document.form1.birthyear .selectedIndex;
+appbirthyear[applicantid] = document.form1.birthyear[x].text;
+
+var x = document.form1.addresscountry.selectedIndex;
+appcountry[applicantid] = document.form1.addresscountry[x].text;
+var x = document.form1.addresstate .selectedIndex;
+appstate[applicantid] = document.form1.addresstate[x].text;
+
+var x = document.form2.major.selectedIndex;
+appmajor[applicantid] = document.form2.major[x].text;
+var x = document.form2.fos.selectedIndex;
+appfos[applicantid] = document.form2.fos[x].text;
+
+/** Multiselect **/
+
+appdegree[applicantid] = "";
+for (var i=0; i<document.form2.degree.options.length; i++)
+		{
+        
+		if(document.form2.degree.options[i].value!="" && document.form2.degree.options[i].selected)
+					{
+				appdegree[applicantid] = appdegree[applicantid] + document.form2.degree.options[i].text + " <br/> ";
+			}
+
+
+		}
+
+applatform[applicantid] = "";
+for (var i=0; i<document.form2.platform.options.length; i++)
+		{
+        
+		if(document.form2.platform.options[i].value!="" && document.form2.platform.options[i].selected)
+					{
+				applatform[applicantid] = applatform[applicantid] + document.form2.platform.options[i].text + " <br/> ";
+			}
+
+
+		}
+
+
+/*** Check Boxes ***/
+appmode[applicantid] = "";
+for (var i=0; i<3; i++)
+		{
+        
+		if(document.form1.mode[i].checked)
+					{
+				appmode[applicantid] = appmode[applicantid] + document.form1.mode[i].value + " <br/> ";
+			}
+
+
+		}
+
+appavaildays [applicantid] = "";
+for (var i=0; i<6; i++)
+		{
+        
+		if(document.form1.availdays[i].checked)
+					{
+				appavaildays[applicantid] = appavaildays[applicantid] + document.form1.availdays[i].value + " <br/> ";
+			}
+
+
+		}
+
+appavailhours [applicantid] = "";
+for (var i=0; i<6; i++)
+		{
+        
+		if(document.form1.availhours[i].checked)
+					{
+				appavailhours[applicantid] = appavailhours[applicantid] + document.form1.availhours[i].value + " <br/> ";
+			}
+
+
+		}
+
+
+applang[applicantid] = "";
+for (var i=0; i<4; i++)
+		{
+        
+		if(document.form1.lang[i].checked)
+					{
+				applang[applicantid] = applang[applicantid] + document.form1.lang[i].value + "<br/> ";
+			}
+
+
+		}
+
+approftext[applicantid] = document.form2.profaddinfo.value;
+appedutext[applicantid] = document.form2.eduaddinfo.value;
+if (errorindoc==1)
+		{
+			var f4 = document.getElementById("errdescription2");
+			document.getElementById('errdescription2').innerHTML = "Please Correct the field(s) marked in red" ;
+			f4.style.color="red";
+			errorindoc = 1;
+			return;
+		}
+
+else
+		{
+CreateTable(document.getElementById('table'+applicantid));
+document.getElementById('table'+applicantid).style.visibility = "visible";
+
+
+}
+
+applicantid++;
+
+
+var d1 = document.getElementById("div1");
+		d1.style.visibility="hidden";
+
+		var d2 = document.getElementById("div2");
+		d2.style.visibility="hidden";
+
+		var d3 = document.getElementById("div3");
+		d3.style.visibility="visible";
+
+		for (var i=0; i<applicantid; i++)
+		{
+			var d4 = document.getElementById('table'+i);
+			d4.style.visibility="visible";
+
+}
+
+}
+/*** For Summary Report***/
+	function CreateTable(srcHolder)
+	{
+	    
+		srcHolder.innerHTML = "";
+
+		var tobeadded = "<TABLE class='tablebg' width='60%' align='center'> <TR> <TD style='padding: .2cm .1cm .1cm .2cm' align = 'left'> Thank you " + appfname[applicantid] + " for sharing your information! <BR/> </TD><TD style='padding: .2cm .1cm .1cm 1in' class='dispdata'><INPUT TYPE='button' VALUE='Detailed Report' ONCLICK='detailreport("+ applicantid + ");'></TD></TR></TABLE>";
+		srcHolder.innerHTML = tobeadded;
+		
+	}
+
+/*** Detail Report ***/
+function detailreport(index)
+{
+		var d1 = document.getElementById("div1");
+		d1.style.visibility="hidden";
+
+		var d2 = document.getElementById("div2");
+		d2.style.visibility="hidden";
+
+		var d3 = document.getElementById("div3");
+		d3.style.visibility="hidden";
+
+		for (var i=0; i<applicantid; i++)
+		{
+			var d4 = document.getElementById('table'+i);
+			d4.style.visibility="hidden";
+		}
+
+
+/*** Text Field ***/
+document.getElementById('dispfname').innerHTML = appfname[index] ;
+document.getElementById('displname').innerHTML = applname[index] ;
+document.getElementById('dispaddr1').innerHTML = appaddr1[index] ;
+document.getElementById('dispaddr2').innerHTML = appaddr2[index] ;
+document.getElementById('dispcity').innerHTML = appcity[index] + ",&nbsp;" +  appzip[index] ;
+document.getElementById('dispphone').innerHTML = "(" + appphcode[index] + ")" + "&nbsp-&nbsp" + appphnum[index] ;
+document.getElementById('dispemail').innerHTML = appemail[index] ;
+document.getElementById('disptitle').innerHTML = apptitle[index] ;
+document.getElementById('dispcname').innerHTML = appcname[index] ;
+document.getElementById('dispschool').innerHTML = appschool[index] ;
+/***RAdio Button***/
+document.getElementById('dispgender').innerHTML = appgender[index] ;
+
+document.getElementById('dispethnicity').innerHTML = appethnicity[index] ;
+
+document.getElementById('dispreligion').innerHTML = appreligion[index] ;
+
+document.getElementById('disprelation').innerHTML = apprelation[index] ;
+
+/** Drop Down **/
+
+document.getElementById('dispbirthcountry').innerHTML = appbirthcountry[index] ;
+
+document.getElementById('dispindustry').innerHTML = appindustry[index] ;
+
+document.getElementById('dispprofdate').innerHTML =apppidatefrom [index]  + "&nbsp; - &nbsp;" +  apppidateto[index];
+
+document.getElementById('dispedudate').innerHTML = appeidatefrom [index] + "&nbsp; - &nbsp;" + appeidateto[index]  ;
+
+document.getElementById('dispexp').innerHTML = appexp[index] ;
+
+document.getElementById('dispbirthdate').innerHTML =appbirthmonth[index]  + "/" + appbirthday[index] + "/" + appbirthyear[index];
+
+document.getElementById('dispaddrcountry').innerHTML =appcountry[index]  + ",&nbsp;" + appstate[index] ;
+
+document.getElementById('dispmajor').innerHTML =appmajor[index]  + ",&nbsp;" + appfos[index] ;
+
+document.getElementById('dispdegree').innerHTML =appdegree[index] ;
+
+document.getElementById('dispplatform').innerHTML =applatform[index] ;
+
+document.getElementById('dispmode').innerHTML =appmode[index] ;
+
+document.getElementById('dispavaildays').innerHTML =appavaildays[index] ;
+
+document.getElementById('dispavailhours').innerHTML =appavailhours[index] ;
+
+document.getElementById('displang').innerHTML =applang[index] ;
+
+document.getElementById('disproftext').innerHTML =approftext[index] ;
+
+document.getElementById('dispedutext').innerHTML =appedutext[index] ;
+
+		var d3 = document.getElementById("div4");
+		d3.style.visibility="visible";
+
+		document.body.scrollTop = 0;
+
+
+}
+
+/**** Restore Form****/
+function restoreform1(thisform)
+{
+thisform.reset();
+document.form1.addresstate.value ="";
+document.getElementById('errdescription1').innerHTML = "Field's marked in red are mandatory" ;
+var f1 = document.getElementById("errdescription1");
+			f1.style.color="black";
+var f1 = document.getElementById("errfirstname");
+			f1.style.color="black";
+var f2 = document.getElementById("errlastname");
+			f2.style.color="black";
+var f3 = document.getElementById("errdob");
+			f3.style.color="black";
+var f4 = document.getElementById("errbirthcountry");
+			f4.style.color="black";
+var f5 = document.getElementById("errgender");
+			f5.style.color="black";
+var f6 = document.getElementById("erraddr");
+			f6.style.color="black";
+var f7 = document.getElementById("errcountry");
+			f7.style.color="black";
+var f8 = document.getElementById("errcity");
+			f8.style.color="black";
+var f2 = document.getElementById("errphone");
+			f2.style.color="black";
+var f2 = document.getElementById("errmail");
+			f2.style.color="black";
+var f3 = document.getElementById("errlang");
+			f3.style.color="black";
+
+
+
+}
+
+function restoreform2(thisform)
+{
+thisform.reset();
+
+document.form2.fos.value ="";
+document.getElementById('errdescription2').innerHTML = "Field's marked in red are mandatory" ;
+var f2 = document.getElementById("errdescription2");
+			f2.style.color="black";
+var f2 = document.getElementById("errtitle2");
+			f2.style.color="black";
+var f2 = document.getElementById("errcname");
+			f2.style.color="black";
+var f2 = document.getElementById("errcollname");
+			f2.style.color="black";
+var f4 = document.getElementById("errindustry");
+			f4.style.color="black";
+
+var f4 = document.getElementById("errworkex");
+			f4.style.color="black";
+var f4 = document.getElementById("errdegree");
+			f4.style.color="black";
+var f3 = document.getElementById("erragree");
+			f3.style.color="black";
+			var f7 = document.getElementById("errdatedu");
+			f7.style.color="black";
+var f7 = document.getElementById("errdateprof");
+			f7.style.color="black";
+var f7 = document.getElementById("errmfos");
+			f7.style.color="black";
+
+}
+
+	function applyagain()
+	{
+		restoreform1(document.form1);
+		restoreform2(document.form2);
+		document.getElementById('errdescription1').innerHTML = "Field's marked in red are mandatory" ;
+		document.getElementById('errdescription2').innerHTML = "Field's marked in red are mandatory" ;
+
+		var d1 = document.getElementById("div1");
+		d1.style.visibility="visible";
+
+		var d2 = document.getElementById("div2");
+		d2.style.visibility="hidden";
+
+		var d3 = document.getElementById("div3");
+		d3.style.visibility="hidden";
+
+		for (var i=0; i<applicantid; i++)
+		{
+			var d4 = document.getElementById('table'+i);
+			d4.style.visibility="hidden";
+		}
+		
+		var d3 = document.getElementById("div4");
+		d3.style.visibility="hidden";
+
+		document.body.scrollTop = 0;
+	}
+
+
+
+	function backtosummary()
+	{
+		var d1 = document.getElementById("div1");
+		d1.style.visibility="hidden";
+
+		var d2 = document.getElementById("div2");
+		d2.style.visibility="hidden";
+
+		var d3 = document.getElementById("div3");
+		d3.style.visibility="visible";
+
+		for (var i=0; i<applicantid; i++)
+		{
+			var d4 = document.getElementById('table'+i);
+			d4.style.visibility="visible";
+		}
+
+		var d3 = document.getElementById("div4");
+		d3.style.visibility="hidden";
+
+		document.body.scrollTop = 0;
+	}
+
+}
+</script>
+  </head>
+  <body >
+
+    <form name = "form1" class = "page1" >
+
+      <div id = "div1"style="position:absolute;top:0.5in;width:1248px;margin: 0 auto;">
+        <TABLE   width="60%" align="center">
+          <TR >
+            <TH class = "info" style=" padding:0.2cm 0 0.2cm 3in;">Personal Information
+            </TH>
+          </TR>
+        </TABLE>
+        <TABLE  width="60%" align="center">
+        <TR>
+			<TD style="text-align:center;" id = "errdescription1"> Field's marked in red are mandatory</TD>
+        </TR>
+        </TABLE>
+		
+		<TABLE class='tablebg' width="60%" align="center">
+          
+          <TR>
+            <Th class = "labelinfo" ID = "errfirstname">First Name&nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT>
+            </Th>
+            <TD>
+              <input type="text" name="firstname" /> 
+            </TD>
+          </TR>
+          <TR>
+            <Th class = "labelinfo" ID = "errlastname">Last Name&nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT>
+            </Th>
+            <TD>
+              <input type="text" name="lastname" />&nbsp;&nbsp;
+
+            </TD>
+          </TR>
+          
+          <TR>
+            <Th class = "labelinfo" ID="errdob">Birth Date&nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT>
+            </Th>
+            <TD>
+              <SELECT NAME="birthmonth" onChange="dynamicdate(document.form1.birthmonth.value);">
+                <OPTION VALUE="12" SELECTED>Month
+                </OPTION>
+                <OPTION VALUE="0">Jan
+                </OPTION>
+                <OPTION VALUE="1">Feb
+                </OPTION>
+                <OPTION VALUE="2">Mar
+                </OPTION>
+                <OPTION VALUE="3">Apr
+                </OPTION>
+                <OPTION VALUE="4">May
+                </OPTION>
+                <OPTION VALUE="5">Jun
+                </OPTION>
+                <OPTION VALUE="6">Jul
+                </OPTION>
+                <OPTION VALUE="7">Aug
+                </OPTION>
+                <OPTION VALUE="8">Sep
+                </OPTION>
+                <OPTION VALUE="9">Oct
+                </OPTION>
+                <OPTION VALUE="10">Nov
+                </OPTION>
+                <OPTION VALUE="11">Dec
+                </OPTION>
+              </SELECT>
+              &nbsp
+              <SELECT NAME="birthdate">
+                <OPTION VALUE="" SELECTED >Date
+                </OPTION>
+              </SELECT>
+              &nbsp
+              <SELECT NAME="birthyear">
+                <OPTION VALUE="" SELECTED >Year
+                </OPTION>
+              </SELECT>
+            </TD>
+          </TR>
+          <TR>
+            <Th class = "labelinfo" ID="errbirthcountry">Birth Country&nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT>
+            </Th>
+            <TD>
+              <select name="birthcountry"  >
+                <option value ="0" selected>Choose one 
+                </option>
+                <option>United States
+                </option>
+                <option>Afghanistan
+                </option>
+                <option>Albania
+                </option>
+                <option>Zimbabwe
+                </option>
+              </SELECT>&nbsp;&nbsp;
+            </TD>
+          </TR>
+          <TR>
+            <Th class = "labelinfo" ID ="errgender">Gender&nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT>
+            </Th>
+            <TD>
+              <input type="radio" name="gender" value="Male"/> Male&nbsp;&nbsp;&nbsp;
+              <input type="radio" name="gender" value="Female"/> Female&nbsp;&nbsp;&nbsp;
+              <input type="radio" name="gender" value="NotSpecified" checked/> Do not wish to specify&nbsp;&nbsp;&nbsp;
+
+            </TD>
+          </TR>
+
+
+        </TABLE>
+
+        <TABLE width="60%" align="center">
+          <TR>
+            <TH class = "info" style="padding:0.2cm 0 0.2cm 3in;">Contact Details 
+            </TH>
+          </TR>
+        </TABLE>
+        <TABLE class='tablebg' width="60%" align="center">
+          <TR>
+            <TH  class="labelinfo" ID="erraddr">Address Line1&nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT>
+            </TH>
+            <TD >
+              <INPUT TYPE="text" NAME="address1" VALUE="" SIZE="45">
+              <BR/>
+              <SPAN class="tiny">Street Address, P.O. Box, Company Name
+              </SPAN>
+            </TD>
+          </TR>
+          <TR>
+            <TH class="labelinfo">Address Line2
+            </FONT>
+            </TH>
+            <TD >
+              <INPUT TYPE="text" NAME="address2" VALUE="" SIZE="45">
+              <BR/>
+              <SPAN class="tiny">Apartment, suite, unit, building, floor
+              </SPAN>
+            </TD>
+          </TR>
+          <TR>
+            <Th ID = "errcountry">Country/State &nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT>
+            </Th>
+            <TD>
+              <select name="addresscountry" onchange ="populate(this)" >
+                <option  value="" selected>&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp
+                </option>
+                <option  value="America">America
+                </option>
+                <option  value="India"> India
+                </option>
+                <option  value="China"> China
+                </option>
+                <option  value="Australia"> Australia
+                </option>
+
+              </select>
+              &nbsp &nbsp &nbsp &nbsp &nbsp;
+              <select name="addresstate"  >
+                <option  value="" selected>&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp
+
+              </select>
+			  <br/>
+			  <SPAN class="tiny">&nbsp;Country
+              </SPAN> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp
+              <SPAN class="tiny">State
+              </SPAN>
+
+            </TD>
+          </TR>
+          <TR>
+            <Th ID="errcity">City/Town/ZIP&nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT>
+            </Th>
+            <TD> 
+              <input type="text" name="city" />&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+              <input type="text" name="zip" size="5" maxlength="5" value=""/>
+              <BR/>
+              <SPAN class="tiny">&nbsp;City/Town
+              </SPAN> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
+              <SPAN class="tiny">ZIP
+              </SPAN>
+            </TD>
+          </TR>
+
+          <TR>
+            <TH ID="errphone">Phone&nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT>
+            </TH>
+            <TD >
+              <INPUT TYPE="text" NAME="phcode" VALUE="" SIZE="4" maxlength="3">&nbsp &nbsp - &nbsp &nbsp 
+              <INPUT TYPE="text" NAME="phone" VALUE="" SIZE="20"> 
+              <BR/> 
+              <SPAN class="tiny">Area Code
+              </SPAN> &nbsp &nbsp &nbsp 
+              <SPAN class="tiny">Number
+              </SPAN>
+            </TD>
+          </TR>
+          <TR>
+            <TH  ID="errmail">E-mail ID&nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              
+            </TH>
+            <TD >
+              <INPUT TYPE="text" NAME="email" VALUE="" SIZE="25" TITLE="xxxx@yyy.zzz">
+            </TD>
+          </TR>
+		    
+        </TABLE>
+       
+
+        <TABLE width="60%" align="center">
+          <TR>
+            <TH class = "info" style="padding:0.2cm 0 0.2cm 3in;"> Additional Information 
+            </TH>
+          </TR>
+        </TABLE>
+        <TABLE class='tablebg' width="60%" align="center">
+          
+		  <TR>
+            <Th ID = "errprefcont" >Prefferred mode of Contact
+             
+            </TH> 
+           
+            <TD>
+              <input name="mode" type="checkbox" value = "Email" \	/>E mail&nbsp;&nbsp;&nbsp;
+              <input name="mode" type="checkbox" value = "Phone" \	 />Phone&nbsp;&nbsp;&nbsp;
+              <input name="mode" type="checkbox" value = "Mail" \	/>Mail&nbsp;&nbsp;&nbsp;
+              
+            </TD>
+          </TR>
+<TR>
+<Th ID = "erravaildays" >Available Days
+              
+            </TH> 
+           
+            <TD>
+              <input name="availdays" type="checkbox" VALUE = "Mon"  \	/>Mon&nbsp;&nbsp;&nbsp;
+              <input name="availdays" type="checkbox" VALUE = "Tues" \	 />Tues&nbsp;&nbsp;&nbsp;
+              <input name="availdays" type="checkbox" VALUE = "Wed" \	/>Wed&nbsp;&nbsp;&nbsp;
+			 <input name="availdays" type="checkbox" VALUE = "Thurs"\	/>Thurs&nbsp;&nbsp;&nbsp;
+			 <input name="availdays" type="checkbox"  VALUE = "Fri"\	/>Fri&nbsp;&nbsp;&nbsp;
+			 <input name="availdays" type="checkbox"  VALUE = "Sat"\	/>Sat&nbsp;&nbsp;&nbsp;
+              
+            </TD>
+          </TR>
+
+		  <Th ID = "erravailhours" >Available Hours
+              
+            </TH> 
+           
+            <TD>
+              <input name="availhours" type="checkbox" VALUE = "8.am to 10.am" \	/>8.am to 10.am&nbsp;&nbsp;&nbsp;
+              <input name="availhours" type="checkbox" VALUE = "10.am to 12.pm" \	 />10.am to 12.pm&nbsp;&nbsp;&nbsp;<br/>
+              <input name="availhours" type="checkbox" VALUE = "12.pm to 2.pm" \	/>12.pm to 2.pm&nbsp;&nbsp;&nbsp;
+			 <input name="availhours" type="checkbox"  VALUE = "2.pm to 4.pm"\	/>2.pm to 4.pm&nbsp;&nbsp;&nbsp;<br/>
+			 <input name="availhours" type="checkbox"  VALUE = "4.pm to 6.pm"\	/>4.pm to 6.pm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			  <input name="availhours" type="checkbox" VALUE = "Anytime (8.am to 6.pm)" \	/>Anytime (8.am to 6.pm)&nbsp;&nbsp;&nbsp;
+			
+              
+            </TD>
+          </TR>
+
+		  <TR>
+            <Th ID = "errlang" >English Knowledge &nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT>
+            </TH> 
+            
+            <TD>
+              <input name="lang" type="checkbox"  Value = "Read" \	/>Read&nbsp;&nbsp;&nbsp;
+              <input name="lang" type="checkbox" Value = "Speak"\	 />Speak&nbsp;&nbsp;&nbsp;
+              <input name="lang" type="checkbox"  Value = "Write"\	/>Write&nbsp;&nbsp;&nbsp;
+              <input name="lang" type="checkbox" Value = "None"\	/>None
+            </TD>
+          </TR>
+
+          <TR>
+            <Th>Ethnicity
+            </Th>
+            <TD> 
+              <input type="radio" name="ethnicity" value="NativeAmerican"/> NativeAmerican&nbsp;&nbsp;&nbsp;
+              <input type="radio" name="ethnicity" value="Hispanic"/> Hispanic&nbsp;&nbsp;&nbsp;
+              <input type="radio" name="ethnicity" value="Asian"/> Asian&nbsp;&nbsp;&nbsp;<br/>
+              <input type="radio" name="ethnicity" value="NotSpecified" checked/> Do not wish to specify&nbsp;&nbsp;&nbsp;
+            </TD>
+          </TR>
+          <TR>
+            <Th>Religion
+            </Th>
+            <TD>
+              <input type="radio" name="religion" value="Christianity"/> Christianity&nbsp;&nbsp;&nbsp;
+              <input type="radio" name="religion" value="Hindu"/> Hindu&nbsp;&nbsp;&nbsp;
+              <input type="radio" name="religion" value="Buddism"/> Buddism&nbsp;&nbsp;&nbsp;<br/>
+              <input type="radio" name="religion" value="NotSpecified" checked/> Do not wish to specify&nbsp;&nbsp;&nbsp;
+            </TD>
+          </TR>
+          <TR>
+            <Th>Relationship Status
+
+            
+            </Th>
+            <TD> 
+              <input type="radio" name="relation" value="Single"/> Single&nbsp;&nbsp;&nbsp;
+              <input type="radio" name="relation" value="Married"/> Married&nbsp;&nbsp;&nbsp;
+              <input type="radio" name="relation" value="NotSpecified" checked/> Do not wish to specify&nbsp;&nbsp;&nbsp;
+            </TD>
+          </TR>
+
+        </TABLE>
+
+        <TABLE width="60%" align="center" style = "text-align:center;">
+          <TR>
+            <TD>
+              <input type="button" value="Continue" class = "submit" onClick="continueForm()"/> 
+              <INPUT TYPE="button" VALUE="Reset" ONCLICK="restoreform1(document.form1);">
+            </TD>
+          </TR>
+
+        </TABLE>
+
+      </div>
+</form>
+<form name = "form2" class = "page1" >
+
+      <div id = "div2"  style="position:absolute;top:0.5in;width:1248px;margin: 0 auto;visibility:hidden;">
+        <TABLE width="60%" align="center">
+          <TR>
+            <TH class = "info" style="padding:0.2cm 0 0.2cm 3in;"> Professional Work Experience
+            </TH>
+          </TR>
+        </TABLE>
+		 <TABLE  width="60%" align="center">
+        <TR>
+			<TD style="text-align:center;" id = "errdescription2">Field's marked in red are mandatory</TD>
+        </TR>
+        </TABLE>
+        <TABLE class='tablebg' width="60%" align="center">
+          <TR>
+            <Th ID = "errtitle2">Title&nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT>
+            </Th>
+            <TD>
+              <input type="text" name="title2" size = "30" maxlength ="30" />
+            </TD>
+          </TR>
+          <TR>
+            <Th ID ="errcname">Company Name&nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT>
+            </Th>
+            <TD>
+              <input type="text" name="companyName" size = "40" maxlength ="40"  />
+            </TD>
+          </TR>
+          
+          <TR>
+            <Th ID = "errindustry">Industry&nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT>
+            </Th>
+            <TD> 
+              <select name="industry" >
+                <option  value="0" selected> Choose your's 
+                </option>
+                <option >Business Solutions
+                </option>
+                <option  value="2"> Information Technology
+                </option>
+                <option  value="3"> Telecommunication
+                </option>
+                <option  value="4"> Education
+                </option>
+                <option  value="5"> Transportation
+                </option>
+                <option  value="6"> Other
+                </option>
+              </select>
+            </TD>
+          </TR>
+          <TR>
+            <Th ID = "errdateprof">Date Attended&nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT>
+            </Th>
+            <TD>
+              <select name="dateproffrom" >
+                <option  value="" selected> from
+                </option>
+                <option  value="2000">2000
+                </option>
+                <option  value="2001">2001
+                </option>
+                <option  value="2002"> 2002
+                </option>
+                <option  value="2003"> 2003
+                </option>
+                <option  value="2004"> 2004
+                </option>
+                <option  value="2005">2005
+                </option>
+              </select>&nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp;
+              <select name="dateprofto" >
+                <option  value="" selected> to
+                </option>
+                <option  value="2000">2000
+                </option>
+                <option  value="2001">2001
+                </option>
+                <option  value="2002"> 2002
+                </option>
+                <option  value="2003"> 2003
+                </option>
+                <option  value="2004"> 2004
+                </option>
+                <option  value="2005">2005
+                </option>
+              </select>
+            </TD>
+          </TR>
+          <TR>
+            <Th ID = "errworkex">Years of Experience &nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT>
+            </Th>
+            <TD>
+              <select name="workex">
+                <option  value="0" selected> none
+                </option>
+                <option  value="1">1+
+                </option>
+                <option  value="2">2+
+                </option>
+                <option  value="3"> 3+
+                </option>
+                <option  value="4"> 4+
+                </option>
+                <option  value="5"> 5+
+                </option>
+                <option  value="6">10+
+                </option>
+              </select>
+            </TD>
+          </TR>
+          <TR>
+            <Th>Platforms Used
+            </Th>
+            <TD>
+              <select name="platform" multiple >
+                <option  value="1" >Mac
+                </option>
+                <option  value="2">Linux
+                </option>
+                <option  value="3"> Unix
+                </option>
+                <option  value="4"> Windows
+                </option>
+              </select>
+            </TD>
+          </TR>
+
+
+
+          <TR>
+            <TH>Additional Information
+            </TH>
+            <TD>
+              <textarea cols="40" rows="5" name="profaddinfo" >
+              </textarea>
+            </TD>
+          </TR>
+
+        </TABLE>
+
+        <TABLE width="60%" align="center">
+          <TR>
+            <TH class = "info" style="padding:0.2cm 0 0.2cm 3in;">Education Information
+            </TH>
+          </TR>
+        </TABLE>
+        <TABLE  class='tablebg' width="60%" align="center">
+          <TR>
+            <Th ID ="errcollname">Name of School&nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT>
+            </Th>
+            <TD>
+              <input type="text" name="collegeName" size = "40" maxlength ="40"/>
+            </TD>
+          </TR>
+          <TR>
+            <Th ID = "errdegree">Degree(s) Earned&nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT>
+            </Th>
+            <TD>   
+              <select name="degree" multiple >
+                
+                <option value="1" >Bachelors
+                </option>
+                <option value="2" >Masters
+                </option>
+                <option value="3" > Ph.D
+                </option>
+                <option value="4" > Post Doc
+                </option>
+              </select>
+            </TD>
+          </TR>
+          <TR>
+            <Th ID = "errmfos">Major/Field of Study&nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT>
+            </Th>
+            <TD> 
+              <select name="major" onchange = "populatefos(this)" >
+                <option  value="" selected>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </option>
+                <option  value="1">Engineering
+                </option>
+                <option  value="2">Communication
+                </option>
+                <option  value="3"> Business
+                </option>
+                <option  value="4"> Biological Sciences
+                </option>
+                <option  value="5"> Medicine
+                </option>
+                <option  value="6">Business
+                </option>
+              </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <select name="fos"  >
+                <option  value="" selected>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </option>
+
+              </select>
+              <BR/> 
+              <SPAN class="tiny">&nbsp Major
+              </SPAN> &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp 
+              <SPAN class="tiny">Feild of Study
+              </SPAN>
+            </TD>
+          </TR>
+
+
+
+          <TR>
+            <Th ID = "errdatedu">Dates Attended &nbsp
+              <FONT SIZE="3" COLOR="RED">*
+              </FONT> 
+            </Th>
+            <TD>
+              <select name="datedufrom" >
+                <option  value="" selected> from
+                </option>
+                <option  value="2000">2000
+                </option>
+                <option  value="2001">2001
+                </option>
+                <option  value="2002"> 2002
+                </option>
+                <option  value="2003"> 2003
+                </option>
+                <option  value="2004"> 2004
+                </option>
+                <option  value="2005">2005
+                </option>
+              </select>&nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp;
+              <select name="dateduto" >
+                <option  value="" selected> to
+                </option>
+                <option  value="2000">2000
+                </option>
+                <option  value="2001">2001
+                </option>
+                <option  value="2002"> 2002
+                </option>
+                <option  value="2003"> 2003
+                </option>
+                <option  value="2004"> 2004
+                </option>
+                <option  value="2005">2005
+                </option>
+              </select>
+            </TD>
+          </TR>
+          <TR>
+            <Th>Additional Information 
+            </Th>
+            <TD>
+              <textarea cols="40" rows="5" name="eduaddinfo">
+              </textarea>
+            </TD>
+          </TR>
+
+          <TABLE class='tablebg' align="Center" width="60%" style = "text-align:center;">
+            <TR>
+              <Th ID = "erragree" style="padding:0.2cm 0 0.2cm 2in;">
+                <input name="agree" type="checkbox" 	/>&nbsp;
+                <FONT SIZE="3" COLOR="RED">*
+                </FONT>I Agree to share this information for applying job's.
+              </Th>
+            </TR>
+          </TABLE>
+        </TABLE>
+        <TABLE width="60%" align="Center" style = "text-align:center;">
+          <TR>
+            <TD>
+              <input type="button" class= "submit"value="Back" onClick="switchDiv()"/>
+              <input type="button" class= "submit"value="Save Form" onClick="confirmData()"/>
+              <input type="button" class= "submit"value="Reset" ONCLICK="restoreform2(document.form2);" />
+            </TD>
+          </TR>
+        </TABLE>
+      </div>
+    </form>
+	
+	<FORM name="form3">
+	<DIV ID="div3"  style="position:absolute;top:0.5in;width:1248px;margin: 0 auto;visibility:hidden;">
+		
+			<TABLE  width="60%" align="center">
+				<TR class="greentitle">
+					<TH style="padding:0.2cm 0 0.2cm 3.5in;">Summary</TH>
+				</TR>
+			</TABLE>
+			
+			<DIV ID="table0" style="visibility:hidden;">
+				
+			</DIV>
+			
+			<DIV ID="table1" style="visibility:hidden;">
+								
+			</DIV>
+			
+			<DIV ID="table2" style="visibility:hidden;">
+				
+			</DIV>
+
+			<DIV ID="table3" style="visibility:hidden;">
+				
+			</DIV>
+
+			<DIV ID="table4" style="visibility:hidden;">
+				
+			</DIV>
+
+			<DIV ID="table5" style="visibility:hidden;">
+				
+			</DIV>
+
+			<DIV ID="table6" style="visibility:hidden;">
+				
+			</DIV>
+
+			<DIV ID="table7" style="visibility:hidden;">
+				
+			</DIV>
+
+			<DIV ID="table8" style="visibility:hidden;">
+				
+			</DIV>
+
+			<DIV ID="table9" style="visibility:hidden;">
+				
+			</DIV>
+
+			<TABLE class='tablebg' width="60%" align="center">	
+				<TR>
+					<TD align="center">
+						<INPUT TYPE="button" VALUE="Apply Again" ONCLICK="applyagain();">	
+					</TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		</FORM>
+	
+<form name = "form4">
+<div id = "div4" style="position:absolute;top:0.5in;width:1248px;margin: 0 auto;visibility:hidden;">
+       
+		<TABLE width="60%" align="center">
+          <TR >
+            <TH class = "info" style="padding:0.2cm 0 0.2cm 3in;">Personal Information
+            </TH>
+          </TR>
+        </TABLE>
+        <TABLE  class='tablebg' width="60%" align="center">
+          
+          <TR>
+            <Th class = "labelinfo" ID = "errfirstname">First Name
+            </Th>
+            <TD class="dispdata" ID = "dispfname">
+                       </TD>
+          </TR>
+          <TR>
+            <Th class = "labelinfo" ID = "errlastname">Last Name
+                         </Th>
+            <TD class="dispdata" ID = "displname">
+              
+
+            </TD>
+          </TR>
+                    <TR>
+            <Th class = "labelinfo" ID="errdob">Birth Date
+            </Th>
+            <TD class="dispdata" ID ="dispbirthdate" >
+                          
+            </TD>
+          </TR>
+          <TR>
+            <Th class = "labelinfo" ID="errbirthcountry">Birth Country
+            </Th>
+            <TD class="dispdata" ID = "dispbirthcountry">
+                        </TD>
+          </TR>
+          <TR>
+            <Th class = "labelinfo" ID ="errgender">Gender
+            </Th>
+            <TD class="dispdata" ID = "dispgender">
+              
+            </TD>
+          </TR>
+
+
+        </TABLE>
+
+        <TABLE width="60%" align="center">
+          <TR>
+            <TH class = "info" style="padding:0.2cm 0 0.2cm 3in;">Contact Details 
+            </TH>
+          </TR>
+        </TABLE>
+        <TABLE  class='tablebg' width="60%" align="center">
+          <TR>
+            <TH  class="labelinfo" ID="erraddr">Address Line1
+              </FONT>
+            </TH>
+            <TD class="dispdata" ID = "dispaddr1" >
+              
+            </TD>
+          </TR>
+          <TR>
+            <TH class="labelinfo">Address Line2
+            </FONT>
+            </TH>
+            <TD class="dispdata" ID = "dispaddr2" >
+              
+            </TD>
+          </TR>
+          <TR>
+            <Th ID = "errcountry">Country/State 
+            </Th>
+            <TD class="dispdata" ID = "dispaddrcountry">
+            </TD>
+          </TR>
+          <TR>
+            <Th ID="errcity">City/Town/ZIP
+            </Th>
+            <TD class="dispdata" ID = "dispcity" > 
+              
+            </TD>
+          </TR>
+
+          <TR>
+            <TH ID="errphone">Phone
+            </TH>
+            <TD class="dispdata" ID = "dispphone">
+              
+            </TD>
+          </TR>
+          <TR>
+            <TH  ID="errmail">E-mail ID
+            </TH>
+            <TD class="dispdata" ID = "dispemail">
+              
+            </TD>
+          </TR>
+		          </TABLE>
+
+				  <TABLE width="60%" align="center">
+          <TR>
+            <TH  class = "info" style="padding:0.2cm 0 0.2cm 3in;"> Additional Information 
+            </TH>
+          </TR>
+        </TABLE>
+        <TABLE class='tablebg' width="60%" align="center">
+          
+		  <TR>
+            <Th ID = "errprefcont" >Prefferred mode of Contact
+              </FONT>
+            </TH> 
+           
+            <TD class="dispdata" ID ="dispmode">
+              
+              
+            </TD>
+          </TR>
+<TR>
+<Th ID = "erravaildays" >Available Days
+              </FONT>
+            </TH> 
+           
+            <TD class="dispdata" ID ="dispavaildays">
+              
+            </TD>
+          </TR>
+
+		  <Th ID = "erravailhours" >Available Hours
+              </FONT>
+            </TH> 
+           
+            <TD class="dispdata" ID ="dispavailhours">
+              			
+              
+            </TD>
+          </TR>
+
+		  <TR>
+            <Th ID = "errlang" >English Knowledge 
+            </TH> 
+            
+            <TD class="dispdata" ID ="displang">
+              
+            </TD>
+          </TR>
+
+          <TR>
+            <Th>Ethnicity
+            </Th>
+            <TD class="dispdata" ID = "dispethnicity"> 
+              
+            </TD>
+          </TR>
+          <TR>
+            <Th>Religion
+            </Th>
+            <TD class="dispdata" ID = "dispreligion">
+              
+            </TD>
+          </TR>
+          <TR>
+            <Th>Relationship Status
+
+            
+            </Th>
+            <TD class="dispdata" ID = "disprelation"> 
+              
+            </TD>
+          </TR>
+
+        </TABLE>
+                     
+
+           <TABLE width="60%" align="center">
+          <TR>
+            <TH class = "info" style="padding:0.2cm 0 0.2cm 3in;"> Professional Work Experience
+            </TH>
+          </TR>
+        </TABLE>
+        <TABLE  class='tablebg' width="60%" align="center">
+          <TR>
+            <Th ID = "errtitle2">Title
+            </Th>
+            <TD class="dispdata" ID = "disptitle">
+              
+            </TD>
+          </TR>
+          <TR>
+            <Th ID ="errcname">Company Name
+             
+            </Th>
+            <TD class="dispdata" ID = "dispcname">
+             
+            </TD>
+          </TR>
+          
+          <TR>
+            <Th ID = "errindustry">Industry
+            </Th>
+            <TD class="dispdata" ID = "dispindustry"> 
+              
+            </TD>
+          </TR>
+          <TR>
+            <Th ID = "errdateprof">Year's Attended
+            </Th>
+            <TD class="dispdata" ID = "dispprofdate">
+              
+          </TR>
+          <TR>
+            <Th ID = "errworkex">Years of Experience 
+            </Th>
+            <TD class="dispdata" ID = "dispexp">
+                           
+            </TD>
+          </TR>
+
+		  <TR>
+            <Th>Platforms Used
+            </Th>
+            <TD class="dispdata" ID ="dispplatform">
+              
+            </TD>
+          </TR>
+
+
+
+          <TR>
+            <TH>Additional Information
+            </TH>
+            <TD class="dispdata" ID ="disproftext" >
+              
+            </TD>
+          </TR>
+
+        </TABLE>
+
+        <TABLE width="60%" align="center">
+          <TR>
+            <TH class = "info" style="padding:0.2cm 0 0.2cm 3in;">Education Information
+            </TH>
+          </TR>
+        </TABLE>
+        <TABLE  class='tablebg' width="60%" align="center">
+          <TR>
+            <Th ID ="errcollname">Name of School
+            </Th>
+            <TD class="dispdata" ID = "dispschool">
+              
+            </TD>
+          </TR>
+          <TR>
+            <Th ID = "errdegree">Degree(s) Earned
+            </Th>
+            <TD class="dispdata" ID ="dispdegree">   
+              
+            </TD>
+          </TR>
+          <TR>
+            <Th ID = "errmfos">Major/Field of Study
+            </Th>
+            <TD class="dispdata" ID = "dispmajor"> 
+              
+            </TD>
+          </TR>
+
+
+
+          <TR>
+            <Th ID = "errdatedu">Year's Attended
+            </Th>
+            <TD class="dispdata" ID = "dispedudate">
+             
+                              
+            </TD>
+          </TR>
+
+          <TR>
+            <Th>Additional Information 
+            </Th>
+            <TD class="dispdata" ID ="dispedutext">
+             
+            </TD>
+          </TR>
+        </TABLE>
+         <TABLE width="60%" align = "center" style = "text-align:center;">
+          <TR>
+            <TD>
+              <input type="button" class= "submit"value="Back to Summary" onClick="backtosummary()"/>
+             
+            </TD>
+          </TR>
+        </TABLE>
+         </div>
+     </form>
+	 
+    
+
+
+  </body>
+</html>

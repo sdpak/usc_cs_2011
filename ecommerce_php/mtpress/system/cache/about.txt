@@ -1,0 +1,7 @@
+
+Designer: Deepak Sukumaran<br/>
+USC id :9226430941<br/>
+mail: dsukumar@usc.edu<br/>
+Wesite name :  The MT Press<br/>
+
+Addition to all the functionalities. This site also uses Ajax for displaying this content.
